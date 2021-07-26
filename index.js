@@ -50,5 +50,3 @@ const convertCurrency = async (fromCurrency, toCurrency, amount) => {
 convertCurrency('AUD', 'CAD', 20)
   .then(result => console.log(result))
   .catch(error => console.log(error));
-
-// Output data
