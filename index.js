@@ -17,12 +17,12 @@ const getExchangeRate = async (fromCurrency, toCurrency) => {
 
 };
 
-
 // Fetch Data about countries
 const getCountries = async (currencyCode) => {
   const { data } = await axios.get(`${REST_COUNTRIES_API}/${currencyCode}`); 
 
   const countries = data.map(({ name }) => name);
+  console.log('countries: \n', countries);
 
   return countries;
 };
@@ -37,10 +37,13 @@ const convertCurrency = async (fromCurrency, toCurrency, amount) => {
     getExchangeRate(fromCurrency, toCurrency),
   ]);
 
-  console.log(countries);
-  console.log(exchangeRate);
+  const convertedAmount = (amount * exchangeRate).toFixed(2);
+
+  return `${amount} ${fromCurrency} is worth ${convertedAmount} ${toCurrency}. You can spend these in the following countries: ${countries}`;
 };
 
-convertCurrency('AUD', 'USD', 20);
+convertCurrency('AUD', 'USD', 20)
+  .then(result => console.log(result))
+  .catch(error => console.log(error));
 
 // Output data
